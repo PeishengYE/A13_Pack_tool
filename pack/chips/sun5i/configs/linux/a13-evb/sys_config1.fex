@@ -40,20 +40,20 @@ sdc_d2                   = port:PF5<2><1><default><default>
 
 [twi_para]
 twi_port                 = 0
-twi_scl                  = port:PB0<2>
-twi_sda                  = port:PB1<2>
+twi_scl                  = port:PB0<2><1><default><default>
+twi_sda                  = port:PB1<2><1><default><default>
 
 [uart_para]
 uart_debug_port          = 1
-uart_debug_tx            = port:PG3<4>
-uart_debug_rx            = port:PG4<4>
+uart_debug_tx            = port:PG3<4><1><default><default>
+uart_debug_rx            = port:PG4<4><1><default><default>
 
 [jtag_para]
 jtag_enable              = 0
-jtag_ms                  = port:PF0<4><0><default><default>
-jtag_ck                  = port:PF5<4><0><default><default>
-jtag_do                  = port:PF3<4><0><default><default>
-jtag_di                  = port:PF1<4><0><default><default>
+jtag_ms                  = port:PF0<4><1><default><default>
+jtag_ck                  = port:PF5<4><1><default><default>
+jtag_do                  = port:PF3<4><1><default><default>
+jtag_di                  = port:PF1<4><1><default><default>
 
 
 ;*****************************************************************************
@@ -150,15 +150,15 @@ twi2_sda                 = port:PB18<2><default><default><default>
 uart_used                = 0
 uart_port                = 0
 uart_type                = 2
-uart_tx                  = port:PB19<2>
-uart_rx                  = port:PB20<2>
+uart_tx                  = port:PB19<2><1><default><default>
+uart_rx                  = port:PB20<2><1><default><default>
 
 [uart_para1]
 uart_used                = 1
 uart_port                = 1
 uart_type                = 2
-uart_tx                  = port:PG3<4>
-uart_rx                  = port:PG4<4>
+uart_tx                  = port:PG3<4><1><default><default>
+uart_rx                  = port:PG4<4><1><default><default>
 ;spi configuration
 ;----------------------------------------------------------------------------------
 [spi1_para]
@@ -727,10 +727,13 @@ gy_int2                  =
 
 ;--------------------------------------------------------------------------------
 ;light sensor
+;only modified "ls_used"/"ls_name"/"ls_twi_id", "ls_twi_addr"/"ls_int" not used
+;support list : [ltr501als]
+;               []
 ;--------------------------------------------------------------------------------
 [ls_para]
 ls_used                  = 1
-ls_name					 = "ltr501"
+ls_name					         = "ltr501als"
 ls_twi_id                = 1
 ls_twi_addr              =
 ls_int                   =
@@ -808,10 +811,10 @@ rtc_twi_addr	           = 0x51
 ;pmu_init_adc_freqc     ---set initial coulomb adc coufrequency,Hz,25/50/100/200
 ;pmu_init_chg_pretime   ---set initial pre-charging time,min,40/50/60/70
 ;pmu_init_chg_csttime   ---set initial constance-charging time,min,360/480/600/720
-;pmu_usbvol_limit       ---set usb voltage limited enable,0:关闭,1:打开
-;pmu_usbvol             ---set usb limited voltage level,mV,4000/4100/4200/4300/4400/4500/4600/4700
-;pmu_usbcur_limit       ---set usb current limited enable,0:关闭,1:打开
-;pmu_usbcur             ---set usb limited voltage level,mA,100/500/900
+;pmu_usbvol             ---set usb-ac limited voltage level,mV,4000/4100/4200/4300/4400/4500/4600/4700,0 - not limite
+;pmu_usbcur             ---set usb-ac limited voltage level,mA,100/500/900, 0 - not limite
+;pmu_usbvol_pc	        ---set usb-pc limited voltage level,mV,4000/4100/4200/4300/4400/4500/4600/4700,0 - not limite
+;pmu_usbcur_pc          ---set usb-pc limited voltage level,mA,100/500/900, 0 - not limite
 ;pmu_pwroff_vol         ---set protect voltage when system start up,mV,2600/2700/2800/2900/3000/3100/3200/3300
 ;pmu_pwron_vol          ---set protect voltage after system start up,mV,2600/2700/2800/2900/3000/3100/3200/3300
 ;pmu_pekoff_time        ---set pek off time,ms, 4000/6000/8000/10000
@@ -821,6 +824,8 @@ rtc_twi_addr	           = 0x51
 ;pmu_pwrok_time         ---set pmu pwrok delay time,ms,8/64
 ;pmu_pwrnoe_time        ---set pmu n_oe power down delay time,ms,128/1000/2000/3000
 ;pmu_intotp_en		  		---set pmu power down when overtempertur enable,0:关闭，1：打开
+;pmu_suspendpwroff_vol  ---set pmu shutdown voltage when cpu is suspend and battery voltage is low
+;pmu_batdeten			---set pmu battery detect enabled,0:关闭，1：打开
 ;----------------------------------------------------------------------------------
 [pmu_para]
 pmu_used                 = 1
@@ -859,10 +864,11 @@ pmu_bat_para14           = 84
 pmu_bat_para15           = 92
 pmu_bat_para16           = 100
 
-pmu_usbvol_limit         = 1
 pmu_usbvol               = 4000
-pmu_usbcur_limit         = 0
-pmu_usbcur               =  900
+pmu_usbcur               = 0
+
+pmu_usbvol_pc            = 4000
+pmu_usbcur_pc            = 0
 
 pmu_pwroff_vol           = 3300
 pmu_pwron_vol            = 2900
@@ -882,6 +888,10 @@ pmu_earlysuspend_chgcur2 = 600
 pmu_suspend_chgcur2      = 1200
 pmu_resume_chgcur2       = 400
 pmu_shutdown_chgcur2     = 1200
+
+pmu_suspendpwroff_vol    = 3500
+
+pmu_batdeten		 = 1
 
 [recovery_key]
 key_min			=4
