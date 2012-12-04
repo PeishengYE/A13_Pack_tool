@@ -33,7 +33,7 @@ sprite_gpio0             =
 ; else, support normal standby.
 ;---------------------------------------------------------------------------------------------------------
 [pm_para]
-standby_mode		= 1
+standby_mode		= 0
 
 [card_boot0_para]
 card_ctrl                = 0
@@ -413,6 +413,29 @@ dac0_src                 = 0
 [hdmi_para]
 hdmi_used                = 0
 
+[camera_list_para]
+camera_list_para_used   = 1
+ov7670                  = 0
+gc0308                  = 1
+gt2005                  = 1
+hi704                   = 0
+sp0838                  = 1
+mt9m112                 = 1
+mt9m113                 = 0
+ov2655                  = 0
+hi253                   = 0
+gc0307                  = 1
+mt9d112                 = 0
+ov5640                  = 1
+gc2015                  = 1
+ov2643                  = 1
+gc0329                  = 1
+gc0309                  = 0
+tvp5150                 = 0
+s5k4ec                  = 1
+ov5650_mv9335           = 0
+siv121d                 = 1
+
 ;--------------------------------------------------------------------------------
 ;csi gpio configuration
 ;csi_if: 0:hv_8bit 1:hv_16bit 2:hv_24bit 3:bt656 1ch 4:bt656 2ch 5:bt656 4ch
@@ -428,12 +451,13 @@ hdmi_used                = 0
 ;pmu_ldo4:  fill "axp20_hdmi"
 ;fill "" when not using any pmu power supply
 ;csi_flash_pol: the active polority of the flash light IO 0:low active 1:high active
+;csi_facing:0-camera facing back; 1-camera facing front
 ;--------------------------------------------------------------------------------
 [csi0_para]
 csi_used                 = 1
 csi_mode                 = 0
 csi_dev_qty              = 1
-csi_stby_mode            = 1
+csi_stby_mode            = 0
 
 csi_mname                = "gc0308"
 csi_twi_id               = 2
@@ -445,6 +469,7 @@ csi_iovdd                = ""
 csi_avdd                 = ""
 csi_dvdd                 = ""
 csi_flash_pol            = 1
+csi_facing               = 0
 
 csi_mname_b              = ""
 csi_twi_id_b             = 1
@@ -456,6 +481,7 @@ csi_iovdd_b              = ""
 csi_avdd_b               = ""
 csi_dvdd_b               = ""
 csi_flash_pol_b          = 1
+csi_facing_b             = 1
 
 csi_pck                  = port:PE00<3><default><default><default>
 csi_ck                   = port:PE01<3><default><default><default>
@@ -496,6 +522,7 @@ csi_iovdd                = ""
 csi_avdd                 = ""
 csi_dvdd                 = ""
 csi_flash_pol            = 1
+csi_facing               = 0
 
 csi_mname_b              = ""
 csi_twi_id_b             = 1
@@ -507,6 +534,7 @@ csi_iovdd_b              = ""
 csi_avdd_b               = ""
 csi_dvdd_b               = ""
 csi_flash_pol_b          = 1
+csi_facing_b             = 1
 
 csi_reset                =
 csi_power_en             =
@@ -642,6 +670,19 @@ usb_id_gpio              =
 usb_det_vbus_gpio        =
 usb_drv_vbus_gpio        = port:PG11<1><0><default><0>
 usb_host_init_state      = 1
+;--------------------------------
+;---   Port Power Management 
+;--------------------------------
+[port_pm]
+restrict_1a     = 1
+restrict_500ma  = 1
+v_1a        = 3630000
+c_1a        = 5
+v_500ma     = 3440000 
+c_500ma     = 5
+v_disable   = 3250000
+c_disable   = 5
+ctrl_gpio   = port:PF4<1><0><default><0>
 
 ;--------------------------------
 ;---       USB Device
@@ -968,9 +1009,9 @@ LV5_freq = 624000000
 LV5_volt = 1200
 
 LV6_freq = 576000000
-LV6_volt = 1100
+LV6_volt = 1200
 
 LV7_freq = 432000000
-LV7_volt = 1000
+LV7_volt = 1200
 
 

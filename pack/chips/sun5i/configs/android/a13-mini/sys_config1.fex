@@ -32,7 +32,7 @@ sprite_gpio0             =
 ; else, support normal standby.
 ;---------------------------------------------------------------------------------------------------------
 [pm_para]
-standby_mode		= 1
+standby_mode		= 0
 
 [card_boot0_para]
 card_ctrl                = 0
@@ -956,9 +956,9 @@ LV5_freq = 624000000
 LV5_volt = 1200
 
 LV6_freq = 576000000
-LV6_volt = 1100
+LV6_volt = 1200
 
 LV7_freq = 432000000
-LV7_volt = 1000
+LV7_volt = 1200
 
 
