@@ -241,8 +241,10 @@ ctp_revert_x_flag        = 0
 ctp_revert_y_flag        = 0
 ctp_exchange_x_y_flag    = 0
 
-ctp_int_port = port:PG11<6><default><default><default>
-ctp_wakeup = port:PB03<1><default><default><1>
+ctp_int_port             = port:PG11<6><default>
+ctp_wakeup               = port:PB3<1><default><default><1>
+ctp_reset                = port:PB3<1><default><default><1>
+ctp_io_port              = port:PG11<1><default>
 
 ;----------------------------------------------------------------------------------
 ;touch key configuration
