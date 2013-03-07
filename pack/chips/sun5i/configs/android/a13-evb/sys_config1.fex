@@ -21,7 +21,7 @@ ldo4_vol                 = 3300
 pll4_freq                = 960
 pll6_freq                = 720
 power_start				 = 0
-storage_type			 = 0
+storage_type			 = -1
 
 
 [card_boot]
@@ -33,7 +33,7 @@ sprite_gpio0             =
 ; else, support normal standby.
 ;---------------------------------------------------------------------------------------------------------
 [pm_para]
-standby_mode		= 1
+standby_mode		= 0
 
 [card_boot0_para]
 card_ctrl                = 0
@@ -334,7 +334,7 @@ lcd_dclk_freq            = 33
 lcd_pwm_not_used         = 0
 lcd_pwm_ch               = 0
 lcd_pwm_freq             = 10000
-lcd_pwm_pol              = 1
+lcd_pwm_pol              = 0
 lcd_if                   = 0
 lcd_hbp                  = 46
 lcd_ht                   = 1055
@@ -458,7 +458,7 @@ siv121d                 = 1
 csi_used                 = 1
 csi_mode                 = 0
 csi_dev_qty              = 1
-csi_stby_mode            = 1
+csi_stby_mode            = 0
 
 csi_mname                = "gc0308"
 csi_twi_id               = 2
@@ -470,7 +470,7 @@ csi_iovdd                = ""
 csi_avdd                 = ""
 csi_dvdd                 = ""
 csi_flash_pol            = 1
-csi_facing               = 1
+csi_facing               = 0
 
 csi_mname_b              = ""
 csi_twi_id_b             = 1
@@ -660,7 +660,7 @@ usb_det_vbus_gpio        = port:PG1<0><0><default><default>
 usb_drv_vbus_gpio        = port:PG12<1><0><default><0>
 usb_host_init_state      = 0
 
-usb_suspend_on_off       = 1
+;usb_suspend_on_off       = 1
 ;--------------------------------
 ;---       USB1øÿ÷∆±Í÷æ
 ;--------------------------------
@@ -673,7 +673,7 @@ usb_id_gpio              =
 usb_det_vbus_gpio        =
 usb_drv_vbus_gpio        = port:PG11<1><0><default><0>
 usb_host_init_state      = 1
-usb_suspend_on_off       = 1
+;usb_suspend_on_off       = 1
 ;--------------------------------
 ;---   Port Power Management
 ;--------------------------------
@@ -711,10 +711,10 @@ luns                     = 3
 ; gs_twi_id ---  TWI ID for controlling Gsensor (0: TWI0, 1: TWI1, 2: TWI2)
 ;--------------------------------------------------------------------------------
 [gsensor_para]
-gsensor_used             = 0
-gsensor_name             = "bma222"
+gsensor_used             = 1
+gsensor_name             = "dmard06"
 gsensor_twi_id           = 1
-gsensor_twi_addr         = 0x18
+gsensor_twi_addr         = 0x1c
 gsensor_int1             =
 gsensor_int2             =
 
@@ -909,7 +909,7 @@ pmu_twi_addr             = 0x34
 pmu_twi_id               = 0
 pmu_irq_id               = 0
 pmu_battery_rdc          = 100
-pmu_battery_cap          = 900
+pmu_battery_cap          = 2100
 pmu_init_chgcur          = 300
 pmu_earlysuspend_chgcur  = 600
 pmu_suspend_chgcur       = 1000
