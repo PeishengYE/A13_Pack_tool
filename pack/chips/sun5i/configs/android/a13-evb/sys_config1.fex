@@ -232,11 +232,11 @@ rtp_exchange_x_y_flag = 0
 ;----------------------------------------------------------------------------------
 [ctp_para]
 ctp_used                 =1
-ctp_name                 = "zet6221_ts"
+ctp_name                 = "Goodix-TS"
 ctp_twi_id               = 1
-ctp_twi_addr             =0x76
-ctp_screen_max_x         = 960
-ctp_screen_max_y         = 640
+ctp_twi_addr             =0x5d
+ctp_screen_max_x         = 800
+ctp_screen_max_y         = 480
 ctp_revert_x_flag        = 0
 ctp_revert_y_flag        = 0
 ctp_exchange_x_y_flag    = 0
