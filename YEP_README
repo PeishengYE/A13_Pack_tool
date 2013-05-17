@@ -1,0 +1,13 @@
+1) TO downlaod RT3070 wifi driver
+	https://github.com/merces/rt3070-linux3.git
+2) To recompile 
+   cd $LICHEE
+   ./build.sh -p sun5i -k 3.0
+
+3) To adding some apps in buildroot
+  cd $LICHEE/buildroot
+  make menuconfig
+ 
+4) To pack and download image
+	cd $LICHEE/tools/pack
+	./pack -csun5i -ba13-evb -plinux
