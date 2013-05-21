@@ -20,6 +20,8 @@ ldo3_vol                 = 3300
 ldo4_vol                 = 3300
 pll4_freq                = 960
 pll6_freq                = 720
+power_start				 = 0
+storage_type			 = -1
 
 
 [card_boot]
@@ -28,10 +30,10 @@ sprite_gpio0             =
 
 ;---------------------------------------------------------------------------------------------------------
 ; if 1 == standby_mode, then support super standby;
-; else, support normal standby. 
+; else, support normal standby.
 ;---------------------------------------------------------------------------------------------------------
 [pm_para]
-standby_mode		= 1
+standby_mode		= 0
 
 [card_boot0_para]
 card_ctrl                = 0
@@ -43,6 +45,17 @@ sdc_clk                  = port:PF2<2><1><default><default>
 sdc_cmd                  = port:PF3<2><1><default><default>
 sdc_d3                   = port:PF4<2><1><default><default>
 sdc_d2                   = port:PF5<2><1><default><default>
+
+[card_boot2_para]
+card_ctrl                = 2
+card_high_speed          = 1
+card_line                = 4
+sdc_d1                   = port:PC0<3><1><default><default>
+sdc_d0                   = port:PC1<3><1><default><default>
+sdc_clk                  = port:PC2<3><1><default><default>
+sdc_cmd                  = port:PC3<3><1><default><default>
+sdc_d3                   = port:PC4<3><1><default><default>
+sdc_d2                   = port:PC5<3><1><default><default>
 
 [twi_para]
 twi_port                 = 0
@@ -200,7 +213,7 @@ spi_miso                 = port:PB3<4><default><default><default>
 ;                            normally, 0 is setted.
 ;----------------------------------------------------------------------------------
 [rtp_para]
-rtp_used      = 1
+rtp_used      = 0
 rtp_screen_size = 5
 rtp_regidity_level = 5
 rtp_press_threshold_enable = 0
@@ -218,19 +231,20 @@ rtp_exchange_x_y_flag = 0
 ;at present, only "ft5x_ts" and "Goodix-TS" is supported.
 ;----------------------------------------------------------------------------------
 [ctp_para]
-ctp_used                 =0
-ctp_name                 = "ft5x_ts"
-ctp_twi_id               = 2
-ctp_twi_addr             =0x70
+ctp_used                 =1
+ctp_name                 = "Goodix-TS"
+ctp_twi_id               = 1
+ctp_twi_addr             =0x5d
 ctp_screen_max_x         = 800
 ctp_screen_max_y         = 480
 ctp_revert_x_flag        = 0
 ctp_revert_y_flag        = 0
 ctp_exchange_x_y_flag    = 0
 
-ctp_int_port             = port:PH21<6><default>
-ctp_wakeup               = port:PB13<1><default><default><1>
-ctp_io_port              = port:PH21<0><default>
+ctp_int_port             = port:PG11<6><default>
+ctp_wakeup               = port:PB3<1><default><default><1>
+ctp_reset                = port:PB3<1><default><default><1>
+ctp_io_port              = port:PG11<1><default>
 
 ;----------------------------------------------------------------------------------
 ;touch key configuration
@@ -307,6 +321,9 @@ fb1_scaler_mode_enable   = 0
 
 ;lcd_gpio_0:         SCL
 ;lcd_gpio_1          SDA
+;lcdgamma4iep:       Smart Backlight parameter,根据所用LCD屏的gamma值填写，该值为实际gamma值乘以10。
+;                    默认值为22(gamma值为2.2)，范围为10~30，且只能是偶数。
+;                    如开启智能背光后屏幕比开启前暗，可减小该gamma值；反之，可增加该gamma值。
 ;----------------------------------------------------------------------------------
 [lcd0_para]
 lcd_used                 = 1
@@ -317,7 +334,7 @@ lcd_dclk_freq            = 33
 lcd_pwm_not_used         = 0
 lcd_pwm_ch               = 0
 lcd_pwm_freq             = 10000
-lcd_pwm_pol              = 0
+lcd_pwm_pol              = 1
 lcd_if                   = 0
 lcd_hbp                  = 46
 lcd_ht                   = 1055
@@ -385,6 +402,7 @@ lcdde                    = port:PD25<2><0><default><default>
 lcdhsync                 = port:PD26<2><0><default><default>
 lcdvsync                 = port:PD27<2><0><default><default>
 
+lcdgamma4iep             = 22
 ;----------------------------------------------------------------------------------
 ;tv out dac configuration
 ;dacx_src:  0:composite; 1:luma; 2:chroma; 4:Y; 5:Pb; 6: Pr; 7:none
@@ -395,6 +413,29 @@ dac0_src                 = 0
 
 [hdmi_para]
 hdmi_used                = 0
+
+[camera_list_para]
+camera_list_para_used   = 1
+ov7670                  = 0
+gc0308                  = 1
+gt2005                  = 1
+hi704                   = 0
+sp0838                  = 1
+mt9m112                 = 1
+mt9m113                 = 0
+ov2655                  = 0
+hi253                   = 0
+gc0307                  = 1
+mt9d112                 = 0
+ov5640                  = 1
+gc2015                  = 1
+ov2643                  = 1
+gc0329                  = 1
+gc0309                  = 0
+tvp5150                 = 0
+s5k4ec                  = 1
+ov5650_mv9335           = 0
+siv121d                 = 1
 
 ;--------------------------------------------------------------------------------
 ;csi gpio configuration
@@ -411,12 +452,13 @@ hdmi_used                = 0
 ;pmu_ldo4:  fill "axp20_hdmi"
 ;fill "" when not using any pmu power supply
 ;csi_flash_pol: the active polority of the flash light IO 0:low active 1:high active
+;csi_facing:0-camera facing back; 1-camera facing front
 ;--------------------------------------------------------------------------------
 [csi0_para]
 csi_used                 = 1
 csi_mode                 = 0
 csi_dev_qty              = 1
-csi_stby_mode            = 1
+csi_stby_mode            = 0
 
 csi_mname                = "gc0308"
 csi_twi_id               = 2
@@ -428,6 +470,7 @@ csi_iovdd                = ""
 csi_avdd                 = ""
 csi_dvdd                 = ""
 csi_flash_pol            = 1
+csi_facing               = 0
 
 csi_mname_b              = ""
 csi_twi_id_b             = 1
@@ -439,6 +482,7 @@ csi_iovdd_b              = ""
 csi_avdd_b               = ""
 csi_dvdd_b               = ""
 csi_flash_pol_b          = 1
+csi_facing_b             = 1
 
 csi_pck                  = port:PE00<3><default><default><default>
 csi_ck                   = port:PE01<3><default><default><default>
@@ -479,6 +523,7 @@ csi_iovdd                = ""
 csi_avdd                 = ""
 csi_dvdd                 = ""
 csi_flash_pol            = 1
+csi_facing               = 0
 
 csi_mname_b              = ""
 csi_twi_id_b             = 1
@@ -490,6 +535,7 @@ csi_iovdd_b              = ""
 csi_avdd_b               = ""
 csi_dvdd_b               = ""
 csi_flash_pol_b          = 1
+csi_facing_b             = 1
 
 csi_reset                =
 csi_power_en             =
@@ -531,7 +577,8 @@ sdc_clk                  = port:PF2<2><1><2><default>
 sdc_cmd                  = port:PF3<2><1><2><default>
 sdc_d3                   = port:PF4<2><1><2><default>
 sdc_d2                   = port:PF5<2><1><2><default>
-sdc_det                  = port:PB3<0><1><default><default>
+;sdc_det                  = port:PB3<0><1><default><default>
+sdc_det                  = port:PG0<0><1><default><default>
 sdc_use_wp               = 0
 sdc_wp                   =
 
@@ -613,6 +660,7 @@ usb_det_vbus_gpio        = port:PG1<0><0><default><default>
 usb_drv_vbus_gpio        = port:PG12<1><0><default><0>
 usb_host_init_state      = 0
 
+;usb_suspend_on_off       = 1
 ;--------------------------------
 ;---       USB1控制标志
 ;--------------------------------
@@ -620,11 +668,26 @@ usb_host_init_state      = 0
 usb_used                 = 1
 usb_port_type            = 1
 usb_detect_type          = 0
+usb_controller_type		   = 0
 usb_id_gpio              =
 usb_det_vbus_gpio        =
 usb_drv_vbus_gpio        = port:PG11<1><0><default><0>
-usb_drv_vbus_1_gpio      = 
-usb_host_init_state      = 1
+usb_host_init_state      = 0
+
+;usb_suspend_on_off       = 1
+;--------------------------------
+;---   Port Power Management
+;--------------------------------
+[port_pm]
+restrict_1a     = 1
+restrict_500ma  = 1
+v_1a        = 3630000
+c_1a        = 5
+v_500ma     = 3440000
+c_500ma     = 5
+v_disable   = 3250000
+c_disable   = 5
+ctrl_gpio   = port:PF4<1><0><default><0>
 
 ;--------------------------------
 ;---       USB Device
@@ -649,10 +712,10 @@ luns                     = 3
 ; gs_twi_id ---  TWI ID for controlling Gsensor (0: TWI0, 1: TWI1, 2: TWI2)
 ;--------------------------------------------------------------------------------
 [gsensor_para]
-gsensor_used             = 0
-gsensor_name             = "bma222"
+gsensor_used             = 1
+gsensor_name             = "dmard06"
 gsensor_twi_id           = 1
-gsensor_twi_addr         = 0x18
+gsensor_twi_addr         = 0x1c
 gsensor_int1             =
 gsensor_int2             =
 
@@ -718,10 +781,10 @@ usb_wifi_usbc_num        = 1
 ;3G configuration
 ;--------------------------------------------------------------------------------
 [3g_para]
-3g_used                  = 0
+3g_used                  = 1
 3g_name					 =
-3g_usbc_num              =
-3g_on_off                =
+3g_usbc_num              = 1
+3g_on_off                = 0
 3g_reset                 =
 3g_poweron				 =
 3g_wakeup_out            =
@@ -847,7 +910,7 @@ pmu_twi_addr             = 0x34
 pmu_twi_id               = 0
 pmu_irq_id               = 0
 pmu_battery_rdc          = 100
-pmu_battery_cap          = 2600
+pmu_battery_cap          = 2100
 pmu_init_chgcur          = 300
 pmu_earlysuspend_chgcur  = 600
 pmu_suspend_chgcur       = 1000
@@ -912,6 +975,48 @@ pmu_batdeten		 = 1
 key_min			=4
 key_max			=6
 
+;----------------------------------------------------------------------------------
+; dvfs voltage-frequency table configuration
+;
+; max_freq: cpu maximum frequency, based on Hz, can not be more than 1008MHz
+; min_freq: cpu minimum frequency, based on Hz, can not be less than 60MHz
+;
+; LV_count: count of LV_freq/LV_volt, must be < 16
+;
+; LV1: core vdd is 1.50v if cpu frequency is (1008Mhz, 1104Mhz]
+; LV2: core vdd is 1.40v if cpu frequency is (912Mhz,  1008Mhz]
+; LV3: core vdd is 1.35v if cpu frequency is (864Mhz,   912Mhz]
+; LV4: core vdd is 1.30v if cpu frequency is (624Mhz,   864Mhz]
+; LV5: core vdd is 1.20v if cpu frequency is (576Mhz,   624Mhz]
+; LV6: core vdd is 1.10v if cpu frequency is (432Mhz,   576Mhz]
+; LV7: core vdd is 1.00v if cpu frequency is (60Mhz,    432Mhz]
+;
+;----------------------------------------------------------------------------------
+[dvfs_table]
+max_freq = 1008000000
+min_freq = 60000000
 
+LV_count = 7
+
+LV1_freq = 1104000000
+LV1_volt = 1500
+
+LV2_freq = 1008000000
+LV2_volt = 1400
+
+LV3_freq = 912000000
+LV3_volt = 1350
+
+LV4_freq = 864000000
+LV4_volt = 1300
+
+LV5_freq = 624000000
+LV5_volt = 1200
+
+LV6_freq = 576000000
+LV6_volt = 1200
+
+LV7_freq = 432000000
+LV7_volt = 1200
 
 
