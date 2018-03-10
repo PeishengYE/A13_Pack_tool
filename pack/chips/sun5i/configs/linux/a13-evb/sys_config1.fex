@@ -261,13 +261,14 @@ tkey_int                 =
 yep_gpio_used          = 1
 ;PB16                     = port:PB16<1><default><default><0>
 ;PB15                     = port:PB15<1><default><default><0>
+heartbeat                 = port:PB10<1><default><default><0>
 PB3                     = port:PB3<1><default><default><0>
 PG11                     = port:PG11<1><default><default><0>
 PG9                     = port:PG9<1><default><default><0>
 
 [w1_para]
 w1_used          = 1
-;w1_pin           = port:PG9<1><default><default><0>
+w1_pin           = port:PG11<1><default><default><0>
 ;w1_pin            = port:PB16<1><default><default><0>
 
 ;----------------------------------------------------------------------------------
