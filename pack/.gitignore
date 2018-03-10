@@ -1,3 +1,7 @@
 out/
 *.swp
 sun5i_linux_a13-evb.img
+chips/sun5i/eGon/storage_media/nand/boot1.bin
+chips/sun5i/eGon/storage_media/sdcard/boot1.bin
+chips/sun5i/wboot/bootfs/boot.axf
+
